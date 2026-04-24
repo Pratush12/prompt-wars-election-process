@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary-blue: #1B4E89;
+    --primary-saffron: #FF9933;
+    --primary-green: #138808;
+    --bg-light: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --text-main: #1E293B;
+  }
+
+  body {
+    @apply bg-[var(--bg-light)] text-[var(--text-main)] antialiased font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@theme {
+  --color-indian-blue: #1B4E89;
+  --color-indian-saffron: #FF9933;
+  --color-indian-green: #138808;
+  --color-civic-gray: #64748B;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+/* Custom Micro-animations */
+.hover-scale {
+  @apply transition-transform duration-200 active:scale-95;
+}
+
+.glass {
+  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+}
+
+.indian-gradient {
+  background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+}
+
+.blue-gradient {
+  background: linear-gradient(135deg, #1B4E89 0%, #3B82F6 100%);
+}
+
+/* Hide scrollbar for mobile experience */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
