@@ -12,12 +12,16 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@googlemaps/js-api-loader": "^2.0.2",
+    "@types/dompurify": "^3.0.5",
     "clsx": "^2.1.1",
+    "dompurify": "^3.4.1",
+    "firebase": "^12.12.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.9.0",
     "react": "^19.2.5",
     "react-confetti": "^6.4.0",
     "react-dom": "^19.2.5",
+    "react-helmet-async": "^3.0.0",
     "react-router-dom": "^7.14.2",
     "tailwind-merge": "^3.5.0"
   },

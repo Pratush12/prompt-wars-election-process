@@ -15,7 +15,7 @@ describe('Welcome Component', () => {
   it('enables Get Started only when district is entered', () => {
     render(<MockWelcome t={t} />);
     
-    const btn = screen.getByLabelText(/Get Started/i);
+    const btn = screen.getByLabelText(/Start Voting Assistant/i);
     expect(btn).toBeDisabled();
 
     const input = screen.getByPlaceholderText(/Enter District/i);

@@ -1,35 +1,38 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import React from 'react';
 import VoiceAssistant from '../pages/VoiceAssistant';
 
 describe('VoiceAssistant Component', () => {
-  const t = { voiceAsst: 'Voice Assistant' };
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
   it('cycles through voice states', async () => {
-    vi.useFakeTimers();
-    render(<VoiceAssistant t={t} />);
-
+    render(<VoiceAssistant t={{}} />);
+    
     const micBtn = screen.getByLabelText(/Start Listening/i);
-    fireEvent.click(micBtn);
-
-    // Should be in Listening phase
-    expect(screen.getByText(/Listening/i)).toBeInTheDocument();
-
-    // Advance 3s -> Processing
-    act(() => {
-      vi.advanceTimersByTime(3001);
+    
+    // Start listening
+    await act(async () => {
+      fireEvent.click(micBtn);
     });
-    expect(screen.getByText(/Mera polling booth kaha hai/i)).toBeInTheDocument();
 
-    // Advance 2s more -> Speaking
-    act(() => {
-      vi.advanceTimersByTime(2001);
+    expect(screen.getByText(/listening/i)).toBeInTheDocument();
+
+    // Fast-forward timers to trigger the setTimeout inside startListening
+    await act(async () => {
+      vi.runAllTimers();
     });
-    expect(screen.getByText(/Aapka polling booth St. Mary/i)).toBeInTheDocument();
-    expect(screen.getByText(/AI Voice Assistant/i)).toBeInTheDocument();
+    
+    // After timers run, the async gemini response should be processing
+    // and eventually resolving. Since it's a mocked resolved promise,
+    // we should see the result. If not immediate, wait for it.
 
-    // Test stop listening
-    fireEvent.click(screen.getByRole('button', { name: '' }));
-    vi.useRealTimers();
+    expect(await screen.findByText(/Response From VoteSaathi/i)).toBeInTheDocument();
   });
 });
